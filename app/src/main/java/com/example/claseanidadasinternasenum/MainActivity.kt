@@ -2,8 +2,15 @@ package com.example.claseanidadasinternasenum
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.EditText
+import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
+    var etn_Valor1:EditText? = null
+    lateinit var etn_Valor2:EditText
+    lateinit var tv_resultado:TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -11,7 +18,13 @@ class MainActivity : AppCompatActivity() {
         //claseEnumeradas()
         //seguridadNula()
         //funciones()
-        clases()
+        //clases()
+        //clases anidadas (nested) y las clases internas (Inner)
+        //claseAnidadaeInterna()
+
+        etn_Valor1 = findViewById(R.id.etn_Valor1)
+        etn_Valor2 = findViewById(R.id.etn_Valor2)
+        tv_resultado = findViewById(R.id.tv_Resultado)
     }
 
     enum class Direccion (val dir:Int){
@@ -116,5 +129,29 @@ class MainActivity : AppCompatActivity() {
         println(persona2.edad)
         persona2.codigo()
         println("${persona2.amigo?.first()?.nombre} es amigo de ${persona2.nombre}")
+    }
+
+    private fun claseAnidadaeInterna(){
+        val miClaseAnidad = MiClaseAnidadaInterna.miClaseAnidada()
+        val sumar = miClaseAnidad.suma(10, 5)
+        println("El resultado de la suma es: $sumar")
+
+        val miClaseInterna = MiClaseAnidadaInterna().miClaseInterna()
+        val sumarDos = miClaseInterna.sumarUno(10)
+        println("El resultado de sumar uno es $sumarDos")
+        val sumarTres = miClaseInterna.sumarDos(5)
+        println("El resultado de sumar uno es $sumarTres")
+    }
+
+    fun calcular(Vista:View){
+        val valor1_String = etn_Valor1?.text.toString()
+        val valor2_String = etn_Valor2.text.toString()
+
+        val valor1_Int = valor1_String.toInt()
+        val valor2_Int = Integer.parseInt(valor2_String)
+
+        val suma = valor1_Int + valor2_Int
+        val resultado = suma.toString()
+        tv_resultado.setText(resultado)
     }
 }
